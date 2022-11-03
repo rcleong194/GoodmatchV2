@@ -8,6 +8,10 @@ if (!fs.existsSync('debug.txt')) {
     fs.writeFileSync('debug.txt','');
 }
 
+/**
+ * Matches class
+ * Holds all the logic in regards to seeing compatability score 
+ */
 class Matcher{
     characterCounter(s) {
         let numArray = [];
@@ -72,9 +76,14 @@ class Matcher{
         let retVal = parseFloat(compatString);
         return retVal;
     }
-    
 }
 
+/**
+ * Printer class
+ * Outputs compatability ratings
+ * Considering that various formats are needed as inputs, setters and getters should really only be set classes that inherit from the printer class.
+ *      Small note on setters and getters: could be easily done but considering scope of current program, it is not necessary
+ */
 class Printer{
     constructor(){
         this.matcher = new Matcher();
@@ -85,6 +94,9 @@ class Printer{
     };
 }
 
+/**
+ * Only prints to the console
+ */
 class ConsolePrinter extends Printer{
     constructor(names){
         super();
@@ -120,6 +132,11 @@ class ConsolePrinter extends Printer{
     }    
 }
 
+/**
+ * Prints to a file 'output.txt'
+ * Does have small helper functions for the print function
+ * Small note that it does do some debugging in regards to the parsed csv entered into it 
+ */
 class CsvPrinter extends Printer{
 
     constructor(csv){
@@ -187,6 +204,10 @@ class CsvPrinter extends Printer{
     }
 }
 
+/**
+ * Essentially same code as last time
+ * Updated for scalability if more/different inputs are required 
+ */
 let conOrcsv = readlineSync.question("Would you like to use the console or input .csv file? (con/csv)");
 let printer;
 const maxNamesConsole = 2;
